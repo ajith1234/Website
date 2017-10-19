@@ -3,7 +3,7 @@ const app = express()
 const bodyParser= require('body-parser')
 const path = require('path')
 const MongoClient = require('mongodb').MongoClient
-var db
+let connection = "mongodb://ajith:denizisasideman@cluster0-shard-00-00-iaeoe.mongodb.net:27017,cluster0-shard-00-01-iaeoe.mongodb.net:27017,cluster0-shard-00-02-iaeoe.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin"
 
 app.use(bodyParser.urlencoded({extended: true}))
 app.use('/public', express.static(__dirname + '/public'))
@@ -31,7 +31,7 @@ app.listen(8080, function(){
 
 
 
-MongoClient.connect('mongodb://127.0.0.1:27017', (err, database) => {
+MongoClient.connect(connection, (err, database) => {
   if (err) return console.log(err)
   db = database
   app.listen(3000, () => {
